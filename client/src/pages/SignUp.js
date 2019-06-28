@@ -3,21 +3,23 @@ import { Link } from "react-router-dom";
 import API from "../utils/API";
 
 
+
 class SignUp extends Component {
 
     state = {
-        firstName: "",
-        lastName: "",
-        address: "",
+        firstName: "Michael",
+        lastName: "Black",
+        address: "12 Newport Lane",
         address2: "",
-        city: "",
-        chosenState: "",
-        zipCode:"",
+        city: "Willingboro",
+        chosenState: "New Jersey",
+        zipCode: "12345",
     }
 
     handleInputChange = event => {
-        let value = event.target.value;
-        const name = event.target.name;
+        // let value = event.target.value;
+        // const name = event.target.name;
+        const { name, value } = event.target;
 
         this.setState({
             [name]: value
@@ -25,21 +27,32 @@ class SignUp extends Component {
     };
 
     handleFormSubmit = event => {
-        event.preventDefault();        
+        event.preventDefault();
 
+        if (this.state.name && this.state.address) {
+            API.createPerson({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                address: this.state.address,
+                address2: this.state.address2,
+                city: this.state.city,
+                chosenState: this.state.chosenState,
+                zipCode: this.state.zipCode,
+
+            })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
         console.log(this.state);
 
-        API.createPerson(this.state)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
-    }
+
+    };
 
     // componentDidMount(){
 
     // }
 
     render() {
-
         return (
             <div className="container">
                 <div className="card">
@@ -51,7 +64,7 @@ class SignUp extends Component {
                             <div className="form-row">
                                 <div className="form-group col-md-6">
                                     <label htmlFor="inputFirstName">First Name</label>
-                                    <input type="firstName" className="form-control" onChange={this.handleInputChange} id="inputFirstName" placeholder="First Name"></input>
+                                    <input type="firstName" className="form-control" onChange={ this.handleInputChange } id="inputFirstName" placeholder="First Name"></input>
                                 </div>
 
                                 <div className="form-group col-md-6">
@@ -67,7 +80,7 @@ class SignUp extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="inputAddress2">Address 2</label>
-                                <input type="address"  className="form-control" id="inputAddress2" onChange={this.handleInputChange} placeholder="Apt., Studio, or Floor"></input>
+                                <input type="address" className="form-control" id="inputAddress2" onChange={this.handleInputChange} placeholder="Apt., Studio, or Floor"></input>
                             </div>
 
                             <div className="form-row">
@@ -140,14 +153,17 @@ class SignUp extends Component {
                                     <input type="zipCode" className="form-control" onChange={this.handleInputChange} id="inputZip" placeholder=""></input>
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary">Sign Up!</button>
+
+                            
+                            <Link to = "/CheckIn"><button type="submit" className="btn btn-primary" onClick={this.handleFormSubmit}>Sign Up!</button></Link>
+                            
                         </form>
 
                     </div>
                 </div>
             </div>
         )
-        
+
     }
 }
 

@@ -10,17 +10,19 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CheckIn from "./pages/CheckIn";
 import SignUp from "./pages/SignUp"
 import Home from "./pages/Home";
+import Person from "./pages/Person";
 import './App.css';
-import Recognition from './pages/recognition';
+
+// import Recognition from './pages/recognition';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={ Home } />
-        <Route exact path="/CheckIn" component={  CheckIn }/>
+        <Route path="/CheckIn" component={  CheckIn }/>
         <Route exact path="/SignUp" component={ SignUp } />
-        <Route exact path="/SignUp2" component={ Recognition } />
+        <Route exact path="/person" component={ Person } />
       </Switch>
     </Router>
   );

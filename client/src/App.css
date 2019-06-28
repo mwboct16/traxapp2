@@ -35,3 +35,8 @@
 .btn {
   margin: 10px;
 }
+
+#infoCard {
+  margin-top: auto;
+  margin-bottom: auto;
+}
